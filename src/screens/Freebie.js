@@ -15,10 +15,10 @@ class Freebie extends Component {
 						<div className="text-sm text-coolGray-600 leading-5 w-3/4">App that allows you to download videos from youtube</div>
 					</div>
 					<div className="w-32 flex-shrink-0">
-						<div className="text-sm text-coolGray-600 mb-1">Windows</div>
-						<div className="bg-amber-400 text-sm rounded py-1.5 px-1 text-center cursor-pointer mb-3">download</div>
-						<div className="text-sm text-coolGray-600">macOS</div>
-						<div className="text-sm text-coolGray-600">Linux</div>
+						<div className="text-sm text-coolGray-600 mb-2">Download for</div>
+						<div className="bg-coolGray-200 border border-coolGray-300 hover:border-amber-500 hover:bg-amber-400 transition duration-200 text-sm rounded py-2 px-2 cursor-pointer mb-3">Windows</div>
+						<div className="bg-coolGray-200 border border-coolGray-300 hover:border-amber-500 hover:bg-amber-400 transition duration-200 text-sm rounded py-2 px-2 cursor-pointer mb-3">macOS</div>
+						<div className="bg-coolGray-200 border border-coolGray-300 hover:border-amber-500 hover:bg-amber-400 transition duration-200 text-sm rounded py-2 px-2 cursor-pointer mb-3">Linux</div>
 					</div>
 				
 				</div>

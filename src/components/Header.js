@@ -14,20 +14,28 @@ class Header extends Component {
 	componentDidMount() {
 		this.indecator();
 		setTimeout(function () {
+			const navigationCircle = document.getElementById('navigation-circle');
+			const navigationMenu = document.getElementById('navigation-menu');
+			// const X = navigationCircle.getBoundingClientRect().left - (navigationCircle.getBoundingClientRect().width / 2);
+			// const Y = navigationCircle.getBoundingClientRect().top - (navigationCircle?.getBoundingClientRect().height / 2);
+			const {
+				left: circleLeft,
+				top: circleTop,
+				width: circleWidth,
+				height: circleHeight
+			} = navigationCircle.getBoundingClientRect();
+			
+			
 			document.addEventListener('mousemove', function (e) {
-				const navigationCircle = document.getElementById('navigation-circle');
-				const navigationMenu = document.getElementById('navigation-menu');
-				const X = navigationCircle?.clientLeft - (navigationCircle?.clientWidth / 2);
-				const Y = navigationCircle?.clientTop - (navigationCircle?.clientHeight / 2);
-				if (e.clientY + Y > navigationMenu?.clientHeight) {
+				if (e.clientY > navigationMenu.getBoundingClientRect().height) {
 					navigationCircle.style.opacity = '0';
 				} else {
 					navigationCircle.style.opacity = '1';
-					navigationCircle.style.left = `${e.clientX + X}px`;
-					navigationCircle.style.top = `${e.clientY + Y}px`;
+					navigationCircle.style.left = `${e.clientX - (circleWidth / 2)}px`;
+					navigationCircle.style.top = `${window.scrollY + (e.clientY - (circleHeight / 2))}px`;
 					navigationMenu.style.left = `-${navigationCircle.style.left}`;
-					if (e.clientY + Y >= 0) navigationMenu.style.top = `-${navigationCircle.style.top}`;
-					else navigationMenu.style.top = `${-(e.clientY + Y)}px`;
+					if (e.clientY - (circleHeight / 2) >= 0) navigationMenu.style.top = `-${navigationCircle.style.top}`;
+					else navigationMenu.style.top = `${Math.abs(e.clientY - (circleHeight / 2))}px`;
 					
 				}
 			})
@@ -44,7 +52,7 @@ class Header extends Component {
 	
 	render() {
 		return (
-			<div className="relative">
+			<div className="relative overflow-hidden">
 				<Navigation main={false}/>
 				<Navigation main={true}/>
 			</div>
@@ -72,12 +80,12 @@ const Navigation = ({main}) => {
 	const dark = document.body.classList.hasOwnProperty('dark')
 	return (
 		<div id="navigation-circle"
-		     className={`select-none ${main === false && 'opacity-0 cursor-default absolute z-10 overflow-hidden w-16 h-16 rounded-full text-white '} ${(main === false && !dark) && 'dark'}`}>
-			<div id="navigation-menu" className={`${main === false && 'absolute'} w-screen bg-white dark:bg-gray-700 shadow-sm dark:shadow-none text-gray-900 dark:text-white`}>
-				<div className="max-w-4xl mx-auto py-6 px-4 flex justify-between items-center border-b border-transparent dark:border-gray-800">
+		     className={`select-none ${main === false && 'absolute opacity-0 cursor-default absolute z-10 overflow-hidden w-16 h-16 rounded-full text-white '} ${(main === false && !dark) && 'dark'}`}>
+			<div id="navigation-menu" className={`${main === false && 'absolute'} w-screen bg-white dark:bg-yellow-400 shadow-sm dark:shadow-none text-gray-900 dark:text-white`}>
+				<div className="max-w-4xl mx-auto py-6 px-4 flex justify-between items-center">
 					<div className="font-light uppercase text-xl">Samir Djelal</div>
-					<div id="menu-wrapper" className="text-sm relative select-none">
-						<div className={`indecator ${main === false ? 'bg-red-400' :  'bg-amber-300'} w-8 h-1 top-5 absolute animation duration-300 ease-in-out`}/>
+					<div id="menu-wrapper" className="text-sm relative select-none" style={{textShadow: main ? '1px 1px 1px rgba(0,0,0,0)' : '1px 1px 1px rgba(0,0,0,0.3)'}}>
+						<div className={`indecator ${main === false ? 'bg-orange-400' : 'bg-amber-300'} w-8 h-1 top-5 absolute animation duration-300 ease-in-out`}/>
 						<Link id="home" to="/" className="ml-4 px-0.5">Home</Link>
 						<Link id="work" to="/work" className="ml-4 px-0.5">Work</Link>
 						<Link id="freebie" to="/freebie" className="ml-4 px-0.5">Freebie</Link>
