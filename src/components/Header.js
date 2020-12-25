@@ -1,4 +1,4 @@
-import React, {Component, useEffect} from 'react';
+import React, {Component} from 'react';
 import {Link} from "react-router-dom";
 import {withRouter} from "react-router";
 
@@ -45,8 +45,8 @@ class Header extends Component {
 	render() {
 		return (
 			<div className="relative">
-				<Navigation theme={`dark`}/>
-				<Navigation theme={`light`}/>
+				<Navigation main={false}/>
+				<Navigation main={true}/>
 			</div>
 		);
 	}
@@ -68,14 +68,16 @@ class Header extends Component {
 	}
 }
 
-const Navigation = ({theme}) => {
+const Navigation = ({main}) => {
+	const dark = document.body.classList.hasOwnProperty('dark')
 	return (
-		<div id="navigation-circle" className={`${theme} ${theme === 'dark' && 'select-none opacity-0 cursor-default absolute z-10 overflow-hidden w-16 h-16 rounded-full text-white '}`}>
-			<div id="navigation-menu" className={`${theme === 'dark' && 'absolute'} w-screen bg-white dark:bg-gray-700 shadow-sm dark:shadow-none text-gray-900 dark:text-white`}>
-				<div className="max-w-5xl mx-auto py-6 px-4 flex justify-between items-center border-b border-transparent dark:border-gray-800">
+		<div id="navigation-circle"
+		     className={`select-none ${main === false && 'opacity-0 cursor-default absolute z-10 overflow-hidden w-16 h-16 rounded-full text-white '} ${(main === false && !dark) && 'dark'}`}>
+			<div id="navigation-menu" className={`${main === false && 'absolute'} w-screen bg-white dark:bg-gray-700 shadow-sm dark:shadow-none text-gray-900 dark:text-white`}>
+				<div className="max-w-4xl mx-auto py-6 px-4 flex justify-between items-center border-b border-transparent dark:border-gray-800">
 					<div className="font-light uppercase text-xl">Samir Djelal</div>
 					<div id="menu-wrapper" className="text-sm relative select-none">
-						<div className="indecator bg-amber-300 w-8 h-1 top-5 absolute animation duration-300 ease-in-out"/>
+						<div className={`indecator ${main === false ? 'bg-red-400' :  'bg-amber-300'} w-8 h-1 top-5 absolute animation duration-300 ease-in-out`}/>
 						<Link id="home" to="/" className="ml-4 px-0.5">Home</Link>
 						<Link id="work" to="/work" className="ml-4 px-0.5">Work</Link>
 						<Link id="freebie" to="/freebie" className="ml-4 px-0.5">Freebie</Link>
